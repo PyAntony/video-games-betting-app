@@ -27,9 +27,7 @@ forms to sign up and login. If the user is found to be authenticated in the requ
 user account and logout. Example:
 
 <br /><br />
-<kbd>![log-register]
-(https://github.com/PyAntony/final-project-PyAntony/blob/master/images/topmenu.png)
-</kbd>
+<kbd>![log-register](https://github.com/PyAntony/final-project-PyAntony/blob/master/images/topmenu.png)</kbd>
 <br /><br /> 
 
 **- Command Center:** 
