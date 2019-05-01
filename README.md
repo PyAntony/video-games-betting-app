@@ -28,7 +28,7 @@ user account and logout. Example:
 
 <br /><br />
 <kbd>![log-register]
-(https://github.com/PyAntony/project3-PyAntony/blob/master/images/topmenu.png)
+(https://github.com/PyAntony/final-project-PyAntony/blob/master/images/topmenu.png)
 </kbd>
 <br /><br /> 
 
@@ -40,7 +40,7 @@ Example:
 
 <br /><br />
 <kbd>![log-register]
-(https://github.com/PyAntony/project3-PyAntony/blob/master/images/command.png)
+(https://github.com/PyAntony/final-project-PyAntony/blob/master/images/command.png)
 </kbd>
 <br /><br />
 
@@ -50,7 +50,7 @@ Sections show top 10 upcoming games and chat rooms that can be sorted or searche
 
 <br /><br />
 <kbd>![log-register]
-(https://github.com/PyAntony/project3-PyAntony/blob/master/images/upcoming.png)
+(https://github.com/PyAntony/final-project-PyAntony/blob/master/images/upcoming.png)
 </kbd>
 <br /><br />
 
@@ -61,7 +61,7 @@ whereas other users get the list of games created in that room and can bet. Exam
 
 <br /><br />
 <kbd>![log-register]
-(https://github.com/PyAntony/project3-PyAntony/blob/master/images/chat.png)
+(https://github.com/PyAntony/final-project-PyAntony/blob/master/images/chat.png)
 </kbd>
 <br /><br />
 
