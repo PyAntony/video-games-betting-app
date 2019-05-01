@@ -37,9 +37,7 @@ where gamers can interact with their assets and contact other gamers (this last 
 Example: 
 
 <br /><br />
-<kbd>![log-register]
-(https://github.com/PyAntony/final-project-PyAntony/blob/master/images/command.png)
-</kbd>
+<kbd>![log-register](https://github.com/PyAntony/final-project-PyAntony/blob/master/images/command.png)</kbd>
 <br /><br />
 
 **- Upcoming Games and Open Rooms:** 
@@ -47,9 +45,7 @@ Example:
 Sections show top 10 upcoming games and chat rooms that can be sorted or searched by creator or room name.
 
 <br /><br />
-<kbd>![log-register]
-(https://github.com/PyAntony/final-project-PyAntony/blob/master/images/upcoming.png)
-</kbd>
+<kbd>![log-register](https://github.com/PyAntony/final-project-PyAntony/blob/master/images/upcoming.png)</kbd>
 <br /><br />
 
 **- Chat Rooms:** 
@@ -58,9 +54,7 @@ Rooms have a chat section and a streaming section. Gamers have buttons to create
 whereas other users get the list of games created in that room and can bet. Example:
 
 <br /><br />
-<kbd>![log-register]
-(https://github.com/PyAntony/final-project-PyAntony/blob/master/images/chat.png)
-</kbd>
+<kbd>![log-register](https://github.com/PyAntony/final-project-PyAntony/blob/master/images/chat.png)</kbd>
 <br /><br />
 
 Chat implementation: AJAX is used to implement the chat section. In addition to the standard AJAX form there is a 
