@@ -1,6 +1,6 @@
 # ROSHI BETS
 
-Web app for video games betting using Django.
+Mobile responsive application for video games betting using Django.
 
 
 ## Usage
