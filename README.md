@@ -26,7 +26,7 @@ Top menu includes links to navigate to the different sections in the same html d
 forms to sign up and login. If the user is found to be authenticated in the request, buttons change to display 
 user account and logout. Example:
 
-<br />
+<br /><br />
 <kbd>![log-register](https://github.com/PyAntony/final-project-PyAntony/blob/master/images/topmenu.png)</kbd>
 <br /> <br />
 
