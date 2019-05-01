@@ -28,7 +28,7 @@ user account and logout. Example:
 
 <br />
 <kbd>![log-register](https://github.com/PyAntony/final-project-PyAntony/blob/master/images/topmenu.png)</kbd>
-<br /> 
+<br /> <br />
 
 **- Command Center:** 
 
