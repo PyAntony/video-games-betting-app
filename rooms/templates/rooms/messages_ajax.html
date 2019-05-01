@@ -1,0 +1,11 @@
+
+{% for msg in messages %}
+    <li class="chat-li-msgs">
+        <div class="form-container chat-1msg-container"
+             id="{% if username == msg.name %}chat-name-color{% endif %}">
+            <span id="chat-username">
+                {% if username == msg.name %}YOU:{% else %}
+                {{ msg.name }}{% endif %}</span>{{ msg.txt }}
+        </div>
+    </li>
+{% endfor %}

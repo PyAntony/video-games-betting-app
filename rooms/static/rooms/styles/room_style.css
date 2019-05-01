@@ -1,0 +1,91 @@
+
+.chat-ul-msgs {
+    list-style-type: none;
+    padding-left: 0;
+}
+.chat-li-msgs {
+    padding-top: 6px;
+}
+.chat-typing-container {
+    padding: 10px;
+    border: 0px
+}
+.chat-msgs-container {
+    border: 0px;
+    background-color: white;
+    padding: 0px;
+    overflow-y: auto;
+    height: 480px;
+}
+.chat-1msg-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-right: 20px !important;
+    padding-left: 20px !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    border: 0px !important;
+    width: auto !important;
+    display: inline-block;
+    border-radius: 10px;
+    background-color: #E8E8E8;
+}
+#chat-name-color {
+    background-color: powderblue;
+}
+.chat-text-area {
+    width:100% !important;
+}
+#chat-username {
+    font-size: 10px;
+    color: #808080;
+    font-weight: bold;
+    padding-right: 6px;
+    position: relative;
+    top: 1.5px;
+    font-family: PressStart2PRegular, cursive;
+}
+.btn-20pct {
+    width: 20% !important;
+}
+.redirect-login {
+    text-decoration: none;
+    font-weight: bold;
+}
+.redirect-login:hover {
+    font-size: 20px;
+    color: #00868B;
+}
+.wd-80pct {
+    width: 80% !important;
+}
+.bit8-font {
+    font-family: PressStart2PRegular, cursive;
+}
+.sm-font {
+    font-size: 10px;
+}
+.show-none {
+    display: none;
+}
+.in-line {
+    display: inline;
+}
+.wrap-no {
+    white-space: nowrap;
+}
+
+/* Room chat BUTTONS color modifications (PINK) */
+.btn-chat {
+    font-size: 14px;
+    background: pink !important;
+    box-shadow: inset -6px -6px 0px 0px pink !important;
+}
+.btn-chat:hover {
+    background: #FF69B4 !important;
+    box-shadow: inset 4px 4px 0px 0px #FF69B4 !important;
+}
+.btn-chat:active {
+    background: #C71585 !important;
+    box-shadow: inset 4px 4px 0px 0px #C71585 !important;
+}

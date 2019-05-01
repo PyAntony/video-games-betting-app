@@ -1,0 +1,172 @@
+{% extends "rooms/base.html" %}
+
+{% block title %}
+    Room
+{% endblock %}
+
+{% block header-extras %}
+
+    <!-- jQuery library -->
+    <script
+    src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+
+    {% load static %}
+    <script type="text/javascript" src="{% static 'rooms/js/chat.js' %}"></script>
+
+{% endblock %}
+
+{% block body %}
+
+<hr>
+<h3 class="bit8-font">Admin: {{ admin }}</h3>
+<div class="pure-g">
+
+    <!-- A) LEFT CONTAINER: Video Container & Games -->
+    <div class="pure-u-1 pure-u-md-3-5">
+        <iframe width="98%" height="480"
+            src="https://www.youtube.com/embed/live_stream?channel={{ stream }}"
+            frameborder="0" allowfullscreen>
+        </iframe>
+
+        {% if 'welcome-g' in action %}
+        <button class="btn-8b btn-chat" id="createBtn">Create Game</button>
+        <button class="btn-8b btn-chat" id="delBtn">Delete Room</button>
+
+        <div id="areyousure" class="bit8-font show-none chat-typing-container wrap-no">
+            Are you sure?
+            <a href="{% url 'delete_room' room_name %}"
+               class="pure-menu-link in-line">Yes</a>
+            <a href="#" id="sure-no" class="pure-menu-link in-line">No</a>
+        </div>
+
+        <!-- Create game form -->
+        <br><br>
+        <form action="{% url 'create_game' %}" method="post" id="createGameForm"
+              class="pure-form form-container wd-80pct
+              {% if not validation_msg %}show-none{% endif %}">{% csrf_token %}
+
+            {% if validation_msg %}
+                <h3 class="invalid-msg" >{{ validation_msg }}</h3>
+            {% endif %}
+
+            <input type="hidden" name="creator" value="{{ username }}">
+            <input type="hidden" name="room_name" value="{{ room_name }}">
+
+            <div class="pure-g">
+
+                <div class="pure-u-1 pure-u-md-1-3">
+
+                    <span class="bit8-font sm-font" >Contender:</span><br>
+                    <input class="wd-80pct" type="text" name="contender" required><br><br>
+
+                    <span class="bit8-font sm-font">Video Game:</span><br>
+                    <select name="vg" class="wd-80pct" required>
+                        {% for game_tuple in video_games %}
+                            <option value="{{ game_tuple.0 }}">
+                                {{ game_tuple.1 }}
+                            </option>
+                        {% endfor %}
+                    </select><br><br>
+
+                    <span class="bit8-font sm-font">Initial bet ($):</span><br>
+                    <input value="5" class="wd-80pct" type="number"
+                           name="bet" min="1" required><br><br>
+
+                </div>
+                <div class="pure-u-1 pure-u-md-2-3">
+
+                    <span class="bit8-font sm-font" >Stream channel:</span><br>
+                    <input type="text" name="stream" required><br><br>
+
+                    <span class="bit8-font sm-font">Event date-time:</span><br>
+                    <input type="date" name="date" required>
+                    <input type="time" name="time" required><br><br>
+
+                    <button type="submit" class="btn-8b">
+                        Create Game
+                    </button>
+
+                </div>
+
+            </div>
+        </form><br>
+
+        {% else %}
+        <!--Upcoming events-->
+        <h3 class="bit8-font">Upcoming games:</h3>
+        <table class="pure-table pure-table-horizontal form-container wd-80pct">
+
+            <thead>
+            <tr>
+                <th>Contender</th>
+                <th>Game</th>
+                <th>Scheduled at</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for game in games %}
+                <tr>
+                    <td>{{ game.contender.username }}</td>
+                    <td>{{ game.video_game }}</td>
+                    <td>{{ game.scheduled_at }}</td>
+                    <td>
+                        <button class="btn-8b btn-bet">Bet $$$</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table><br>
+
+        {% endif %}
+    </div>
+
+    <!-- B) RIGHT CONTAINER: Chat container-->
+    <div class="pure-u-1 pure-u-md-2-5">
+
+        <!--Display messages box-->
+        <div class="chat-msgs-container" id="chat-msgs-container">
+
+            <ul class="chat-ul-msgs" id="chat-ul-msgs">
+                {% for msg in messages %}
+                    <li class="chat-li-msgs">
+                        <div class="form-container chat-1msg-container"
+                             id="{% if username == msg.name %}chat-name-color{% endif %}">
+                            <span id="chat-username">
+                                {% if username == msg.name %}YOU:{% else %}
+                                {{ msg.name }}{% endif %}</span>{{ msg.txt }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+        <!--Text field area-->
+        <br>
+        <form class="pure-form pure-form-stacked form-container chat-typing-container"
+              method="post" action="{% url 'save_message' %}" id="chat-form">
+            {% csrf_token %}
+
+            <input type="hidden" name="room_name" value="{{ room_name }}" id="chat-room">
+            <textarea class="pure-input-1-2 chat-text-area" name="msg" id="chat-msg"
+                      placeholder="Say something..." required></textarea>
+
+            {% if 'welcome' in action %}
+                <button type="submit" class="btn-8b btn-form btn-20pct">Send</button>
+            {% else %}
+                <br>
+                <span class="bit8-font">You must
+                    <a href="{% url 'login_view' %}"
+                       class="redirect-login">login</a> to chat.
+                </span>
+            {% endif %}
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

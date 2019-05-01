@@ -1,0 +1,321 @@
+{% extends "rooms/base.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block header-extras %}
+    {% load static %}
+    <script src="{% static 'rooms/js/index.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+
+<!--to pass values to javascript file-->
+<div class="show-none" id="invisibleBlock">
+    <input type="hidden" id="action" value="{{ action }}">
+</div>
+
+
+<!--TOP MENU-->
+<div class="pure-menu pure-menu-horizontal">
+
+    <!--Roshi Logo (top left)-->
+    <a href="{% url 'index' %}" class="pure-menu-heading pure-menu-link">
+        <figure>{% load static %}
+            <img id="roshi-pic-logo" src="{% static 'rooms/roshi2.jpg' %}">
+            <figcaption class="logo-title">ROSHI<br>BETS</figcaption>
+        </figure>
+    </a>
+
+    <!--Other top menu items-->
+    <ul class="pure-menu-list">
+        <li class="pure-menu-item">
+            <a href="#up-games" class="pure-menu-link">Upcoming Games</a>
+        </li>
+        <li class="pure-menu-item">
+            <a href="#open-rooms" class="pure-menu-link">Rooms</a>
+        </li>
+        <li class="pure-menu-item">
+            <a href="#news" class="pure-menu-link">News</a>
+        </li>
+        <li class="pure-menu-item">
+            <a href="#stats" class="pure-menu-link">Statistics</a>
+        </li>
+        <li class="pure-menu-item" >
+            <a class="top-menu-space" href="#"></a>
+        </li>
+
+        <!--Top menu buttons (top right)-->
+        {% if 'welcome' in action %}
+            <li class="pure-menu-item">
+                <form>
+                    <button class="btn-top-menu btn-8b" type="button"
+                            formaction="#">MY ACCOUNT</button>
+                    <button class="btn-top-menu btn-8b btn-log"
+                            formaction="{% url 'logout_view' %}">LOGOUT</button>
+                </form>
+            </li>
+        {% else %}
+            <li class="pure-menu-item">
+                <button id="signBtn" class="btn-top-menu btn-8b btn-sign">SIGN UP</button>
+                <button id="logBtn" class="btn-top-menu btn-8b btn-log">LOGIN</button>
+            </li>
+        {% endif %}
+    </ul>
+
+</div><br>
+
+
+<!--REGISTER FORM-->
+<form class="pure-form pure-form-stacked form-container show-none"
+      action="{% url 'register_view' %}" method="post" id="registerForm">
+
+    <fieldset class="pure-group">{% csrf_token %}
+
+        <legend>REGISTRATION FORM</legend><br>
+        {% if 'register-error' in action %}
+            <h3 class="invalid-msg">{{ msg }}</h3>
+        {% endif %}
+
+        <input type="text" class="pure-input-1-5"
+               name="first_name" placeholder="First name" required>
+        <input type="text" class="pure-input-1-5"
+               name="last_name" placeholder="Last name" required>
+        <input type="email" class="pure-input-1-5"
+               name="email" placeholder="Email" required>
+        <input type="text" class="pure-input-1-5"
+               name="cc" placeholder="Credit card">
+        <input type="text" class="pure-input-1-5"
+               name="username" placeholder="Username" required>
+        <input type="password" class="pure-input-1-5"
+               name="password" placeholder="Password" required><br>
+        <textarea class="pure-input-1-3" name="bio"
+                  placeholder="My bio"></textarea>
+    </fieldset>
+
+    <label for="gamer" class="pure-checkbox">
+        <input id="gamer" name="gamer" type="checkbox"> Register as gamer
+    </label>
+
+    <button type="submit" class="btn-8b btn-form">Register</button>
+</form>
+
+
+<!--LOGIN FORM-->
+<form class="pure-form form-container show-none"
+      action="{% url 'login_view' %}" method="post" id="loginForm">
+
+    <fieldset>{% csrf_token %}
+
+        <legend>LOGIN FORM</legend>
+        {% if 'login-error' in action %}
+            <h3 class="invalid-msg">{{ msg }}</h3>
+        {% endif %}
+
+        <input type="text" placeholder="Username" name="user" required>
+        <input type="password" placeholder="Password" name="pass" required>
+        <button type="submit" class="btn-8b btn-form">Login</button>
+    </fieldset>
+</form>
+
+
+<!--GAMER COMMAND CENTER-->
+<div class="show-none" id="command-center">
+    <hr><h3 class="div-title">COMMAND CENTER</h3>
+
+    <form>
+        <button type="button" class="btn-8b" id="createRoomBtn">Create Room</button>
+        <button class="btn-8b" id="myRoomsBtn"
+                formaction="{% url 'show_my' 'rooms' %}">My Rooms</button>
+        <button class="btn-8b" id="myGamesBtn"
+                formaction="{% url 'show_my' 'games' %}">My Games</button>
+        <button type="button" class="btn-8b">Contact Gamers</button>
+        <button type="button" class="btn-8b">Other Options</button>
+    </form>
+
+    <!--Create room form-->
+    <br><br>
+    <form class="pure-form pure-form-stacked form-container show-none"
+          action="{% url 'create_room' %}" method="post" id="createRoomForm">
+
+        <fieldset class="pure-group">{% csrf_token %}
+
+            <legend>CREATE ROOM</legend><br>
+            {% if 'create_room-error' in action %}
+                <h3 class="invalid-msg">{{ msg }}</h3>
+            {% endif %}
+
+            <input type="text" class="pure-input-1-5"
+                   name="room_name" placeholder="Room name" required><br>
+            <textarea class="pure-input-1-3"
+                      name="room_desc" placeholder="Enter Description"></textarea>
+        </fieldset>
+        <button type="submit" class="btn-8b btn-form">Create</button>
+    </form>
+
+    {% if 'show-my-rooms' in action %}
+        <div class="show-block" id="myRoomsDiv">
+            {% for room in my_objects %}
+                <a href="{% url 'room_view' room.name %}"
+                   class="bit8-font">{{ room.name }}<br></a>
+            {% endfor %}
+        </div>
+
+    {% elif 'show-my-games' in action %}
+        <div class="show-block" id="myGamesDiv">
+            <table class="pure-table pure-table-horizontal form-container">
+                <thead>
+                <tr>
+                    <th>Vs.</th>
+                    <th>Game</th>
+                    <th>Scheduled at</th>
+                    <th>In Room</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for game in my_objects %}
+                <tr>
+                    <td>{{ game.contender.username }}</td>
+                    <td>{{ game.video_game }}</td>
+                    <td>{{ game.scheduled_at }}</td>
+                    <td>
+                        <a href="{% url 'room_view' game.room.name %}">
+                            {{ game.room.name }}
+                        </a>
+                    </td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<!--UPCOMING GAMES TABLE-->
+<br><br>
+<hr><h3 id="up-games" class="div-title">UPCOMING GAMES</h3>
+
+<table class="pure-table pure-table-horizontal form-container">
+
+    <thead>
+    <tr>
+        <th>Player 1</th>
+        <th>Player 2</th>
+        <th>Game</th>
+        <th>Scheduled at</th>
+        <th>In Room</th>
+        <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for game in games %}
+    <tr>
+        <td>{{ game.creator.username }}</td>
+        <td>{{ game.contender.username }}</td>
+        <td>{{ game.video_game }}</td>
+        <td>{{ game.scheduled_at }}</td>
+        <td>
+            <a href="{% url 'room_view' game.room.name %}">
+                {{ game.room.name }}
+            </a>
+        </td>
+        <td></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+</table><br>
+
+
+<!--OPEN ROOMS TABLE-->
+<br><br>
+<hr><h3 id="open-rooms" class="div-title bit8-font">OPEN ROOMS</h3>
+
+<!--Sort form-->
+<form class="pure-form" action="{% url 'sort_rooms' %}" method="post">
+
+    <fieldset>{% csrf_token %}
+
+        Sort by:
+        <select name="field-selected">
+            <option value="created_at">Date Created</option>
+            <option value="participants">Participants</option>
+        </select>
+        <select name="order">
+            <option value="asc">asc</option>
+            <option value="desc">desc</option>
+        </select>
+
+        Display:
+        <input type="number" name="len" min="1" max="100" value="10">
+
+        <button type="submit" class="btn-8b">Sort</button>
+
+    </fieldset>
+</form>
+
+<!--Exact match form-->
+<form class="pure-form" action="{% url 'filter_rooms' %}" method="post">
+
+    <fieldset>{% csrf_token %}
+
+        Exact match:
+        <select name="field-selected">
+            <option value="gamer">Created by</option>
+            <option value="name">Room name</option>
+        </select>
+        <input name="exact-match" type="text" placeholder="value" required>
+        <button type="submit" class="btn-8b">Search</button>
+        {% if 'No rooms' in msg %}
+            {{ msg }}
+        {% endif %}
+    </fieldset>
+</form>
+
+<table class="pure-table pure-table-horizontal form-container">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Created By</th>
+            <th>Description</th>
+            <th>Date Created</th>
+            <th>Participants</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for room in rooms %}
+        <tr>
+            <td>
+                <a href="{% url 'room_view' room.name %}">{{ room.name }}</a>
+            </td>
+            <td>{{ room.user.username }}</td>
+            <td>{{ room.description }}</td>
+            <td>{{ room.created_at }}</td>
+            <td>{{ room.participants }}</td>
+        </tr>{% endfor %}
+    </tbody>
+
+</table>
+
+
+<!--NEWS SECTION-->
+<br><br>
+<hr><h3 id="news" class="div-title">NEWS</h3>
+
+
+<!--STATISTICS SECTION-->
+<br><br>
+<hr><h3 id="stats" class="div-title">STATISTICS</h3>
+
+
+{% endblock %}
