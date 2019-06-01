@@ -63,6 +63,6 @@ posted, else the query is not performed.
 
 **- Additional:**
 
-Database can populated (seeded) with fake objects by running the file roshi_bets/seeder.py. Number of objects
+Database can be populated (seeded) with fake objects by running the file roshi_bets/seeder.py. Number of objects
 to insert can be changed with the global variables.
 
