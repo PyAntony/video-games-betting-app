@@ -1,6 +1,6 @@
 # ROSHI BETS
 
-Mobile responsive application for video games betting using Django.
+Mobile responsive application for video games betting using Django (Final Project: CSCI E-33A).
 
 
 ## Usage
